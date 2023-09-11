@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/stojchevskiboris/vuetube">
-    <img src="data/static/favicon.ico" alt="Logo" width="80" height="80">
+    <img src="public/favicon.ico" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Vuetube - Alternative YouTube FrontEnd</h3>
@@ -22,13 +22,19 @@
 ## About The Project
 <h1>Screen 1</h1>
 
-![Screen Shot 1](data/static/sc1.png)
+![Screen Shot 1](public//scr1.png)
 
 <br><br><br>
 
 <h1>Screen 2</h1>
 
-![Screen Shot 2](data/static/sc2.png)
+![Screen Shot 2](public//scr2.png)
+
+<br><br><br>
+
+<h1>Screen 3</h1>
+
+![Screen Shot 3](public//scr3.png)
 
 ## Built With
 
@@ -73,7 +79,7 @@ npm run build
 ```
 
 
-## Authors
+## Contributors
 
 * **Boris Stojchevski** - [GitHub](https://github.com/stojchevskiboris/)
 * **Krste Gosharevski** - [GitHub](https://github.com/krstegosharevski/)
