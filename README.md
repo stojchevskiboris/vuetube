@@ -13,7 +13,7 @@
     <a href="https://vuejs.org/"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://vuetube-t7xj.onrender.com/"><strong>Open VueTube »</strong></a>
+    <a href="https://vuetube-t7xj.onrender.com/"><strong>Try VueTube »</strong></a>
   </p>
 </p>
 
@@ -22,19 +22,22 @@
 ## About The Project
 <h1>Screen 1</h1>
 
-![Screen Shot 1](public//scr1.png)
-
+<kbd>
+<img src="public/scr1.png" alt="img">
+</kbd>
 <br><br><br>
 
 <h1>Screen 2</h1>
-
-![Screen Shot 2](public//scr2.png)
-
+<kbd>
+<img src="public/scr2.png" alt="img">
+</kbd>
 <br><br><br>
 
 <h1>Screen 3</h1>
 
-![Screen Shot 3](public//scr3.png)
+<kbd>
+<img src="public/scr3.png" alt="img">
+</kbd>
 
 ## Built With
 
@@ -81,6 +84,6 @@ npm run build
 
 ## Contributors
 
-* **Boris Stojchevski** - [GitHub](https://github.com/stojchevskiboris/)
+* **Boris Stojchevski** - [GitHub](https://github.com/stojchevskiboris/) 
 * **Krste Gosharevski** - [GitHub](https://github.com/krstegosharevski/)
 * **Dushan Temelkovski** - [GitHub](https://github.com/DusanTemelkovski/)
