@@ -1,0 +1,194 @@
+/*shared*/
+.darkTheme{
+    background-color: #000339;
+    color: white;
+}
+
+.lightTheme{
+    background-color: white;
+    color: black;
+}
+
+.dark-bg{
+    background-color: #5b5b5b!important;
+    color: white!important;
+}
+
+.dark-bg a{
+    color: white!important;
+    text-decoration: underline;
+}
+
+.fc-dark{
+    color: white;
+    background-color: #707070 !important;
+}
+.fc-dark:focus{
+    color: white;
+    background-color: #707070!important;
+}
+
+.fc-custom{
+    background-color: #d3d3d3!important;
+}
+.fc-custom:focus{
+    background-color: #d3d3d3!important;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mh-65{
+    min-height: 65vh;
+}
+
+.logo-image {
+    max-width: 40px; /* Set the maximum width of the logo image */
+    max-height: 40px; /* Set the maximum height of the logo image */
+}
+
+.logo-image-2 {
+    max-width: 100px; /* Set the maximum width of the logo image */
+    max-height: 100px;
+}
+
+.bigger-input {
+    height: 50px;
+    width: 600px;
+}
+
+#homeBtn, #contrastLink {
+    cursor: pointer;
+}
+
+.text-align-center {
+    text-align-last: center;
+}
+
+.container-custom {
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.d-no {
+    display: none !important;
+}
+
+.col {
+    text-align: -moz-center;
+    text-align: -webkit-center;
+}
+
+.card {
+    width: 25rem !important;
+    text-align: left;
+    height: 100%;
+}
+
+.green {
+    color: #42b883;
+}
+
+
+/*index.html*/
+.cb-1 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#loadingGIF {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.live {
+    font-weight: bold;
+    border: 2px solid;
+    color: red;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+}
+
+.live2 {
+    align-self: end;
+    width: fit-content;
+}
+
+
+/*view.html*/
+.titles {
+    border-bottom: 2px solid dodgerblue;
+    width: fit-content;
+    padding-bottom: 0.2rem;
+    text-align-last: left;
+}
+
+#channelName, #publishedAt {
+    border-bottom: 2px solid mediumpurple;
+}
+
+#like, #unlike {
+    display: none;
+}
+
+#main {
+    text-align-last: center;
+}
+
+
+/*header.html*/
+.hd1 a {
+    text-decoration: none;
+    height: fit-content;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    border: 1px solid #0d6efd;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.hd1 a:hover {
+    transition: 0.2s;
+    background-color: #0d6efd;
+    color: white;
+}
+
+.hd1 {
+    font-size: 2rem;
+    color: #0d6efd;
+    display: contents;
+}
+
+
+/*likedVideos.html*/
+#h1-lv {
+    text-align: center;
+    color: #0d6efd;
+}
+
+#likedVids {
+    width: min-content;
+    /*border: 1px solid #0d6efd;*/
+    border-radius: 10px;
+    transition: 0.2s;
+    color: #0d6efd;
+    cursor: pointer;
+}
+
+#likedVids:hover {
+    background: #0d6efd;
+    transition: 0.2s;
+    color: white;
+
+}
