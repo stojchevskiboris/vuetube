@@ -1,0 +1,5 @@
+Vue:		https://devdocs.io/vue~3/
+Bootstrap:	https://devdocs.io/bootstrap~5/
+HTML:		https://devdocs.io/html/
+CSS:		https://devdocs.io/css/
+JavaScript:	https://devdocs.io/javascript/
