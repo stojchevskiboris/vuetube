@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/stojchevskiboris/vuetube">
-    <img src="data/static/favicon.ico" alt="Logo" width="80" height="80">
+    <img src="public/favicon.ico" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Vuetube - Alternative YouTube FrontEnd</h3>
@@ -13,7 +13,7 @@
     <a href="https://vuejs.org/"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://vuetube-t7xj.onrender.com/"><strong>Open VueTube »</strong></a>
+    <a href="https://vuetube-t7xj.onrender.com/"><strong>Try VueTube »</strong></a>
   </p>
 </p>
 
@@ -22,13 +22,22 @@
 ## About The Project
 <h1>Screen 1</h1>
 
-![Screen Shot 1](data/static/sc1.png)
-
+<kbd>
+<img src="public/scr1.png" alt="img">
+</kbd>
 <br><br><br>
 
 <h1>Screen 2</h1>
+<kbd>
+<img src="public/scr2.png" alt="img">
+</kbd>
+<br><br><br>
 
-![Screen Shot 2](data/static/sc2.png)
+<h1>Screen 3</h1>
+
+<kbd>
+<img src="public/scr3.png" alt="img">
+</kbd>
 
 ## Built With
 
@@ -73,8 +82,8 @@ npm run build
 ```
 
 
-## Authors
+## Contributors
 
-* **Boris Stojchevski** - [GitHub](https://github.com/stojchevskiboris/)
+* **Boris Stojchevski** - [GitHub](https://github.com/stojchevskiboris/) 
 * **Krste Gosharevski** - [GitHub](https://github.com/krstegosharevski/)
 * **Dushan Temelkovski** - [GitHub](https://github.com/DusanTemelkovski/)
