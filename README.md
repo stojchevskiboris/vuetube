@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://github.com/stojchevskiboris/vuetube">
-    <img src="public/favicon.ico" alt="Logo" width="80" height="80">
+    <img src="src/public/favicon.ico" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Vuetube - Alternative YouTube FrontEnd</h3>
@@ -23,20 +23,20 @@
 <h1>Screen 1</h1>
 
 <kbd>
-<img src="public/scr1.png" alt="img">
+<img src="src/public/scr1.png" alt="img">
 </kbd>
 <br><br><br>
 
 <h1>Screen 2</h1>
 <kbd>
-<img src="public/scr2.png" alt="img">
+<img src="src/public/scr2.png" alt="img">
 </kbd>
 <br><br><br>
 
 <h1>Screen 3</h1>
 
 <kbd>
-<img src="public/scr3.png" alt="img">
+<img src="src/public/scr3.png" alt="img">
 </kbd>
 
 ## Built With
