@@ -17,7 +17,7 @@
   </p>
 </p>
 
-![Downloads](https://img.shields.io/github/downloads/stojchevskiboris/vuetube/total) ![Contributors](https://img.shields.io/github/contributors/stojchevskiboris/vuetube?color=dark-green) ![Issues](https://img.shields.io/github/issues/stojchevskiboris/vuetube)
+![Downloads](https://img.shields.io/github/downloads/stojchevskiboris/vuetube/total) ![Issues](https://img.shields.io/github/issues/stojchevskiboris/vuetube)
 
 ## About The Project
 <h1>Screen 1</h1>
