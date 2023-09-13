@@ -9,16 +9,7 @@ window.onload = () => {
         });
     }
 
-    function focusFunc2() {
-        var input = document.getElementById("searchInput2");
-        input.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                call2()
-            }
-        });
-    }
-
+// search function
     function call() {
         document.getElementById('searchInput').blur()
         var search = document.getElementById('searchInput').value
@@ -26,25 +17,10 @@ window.onload = () => {
             return
         window.location.href = 'searchResults.html?q=' + search
     }
-
-    function call2() {
-        document.getElementById('searchInput2').blur()
-        var search = document.getElementById('searchInput2').value
-        if (search == undefined || search == "")
-            return
-        window.location.href = 'searchResults.html?q=' + search
-    }
-
     document.getElementById("bt1").onclick = () => {
         call()
     }
     document.getElementById("searchInput").onclick = () => {
         focusFunc()
-    }
-    document.getElementById("bt2").onclick = () => {
-        call2()
-    }
-    document.getElementById("searchInput2").onclick = () => {
-        focusFunc2()
     }
 }

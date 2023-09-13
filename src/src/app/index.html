@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>VueTube</title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <link href="bootstrap/bootstrap-5.3.0.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="bootstrap/bootstrap-5.3.0.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="database/pouchdb-8.0.1.min.js"></script>
+    <script src="shared.js"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container-custom">
+    <br>
+    <div id="header"></div>
+
+    <br><br>
+
+    <section style="height: 400px" class="container d-flex justify-content-center align-items-center mh-65">
+        <div class=" text-center unselectable">
+
+            <h1 class="display-1"><img class="navbar-brand logo-image-2" src="static/logo.png">VueTube</h1>
+            <input id="searchInput2" onkeyup="inAuto2()"  onfocus="focusFunc2()"  class="form-control fc-custom me-2 mt-2 bigger-input" type="search" placeholder="Search" aria-label="Search">
+            <button id="bt2" onclick="call2()" style="height: 50px" class="btn btn-primary mt-1">Search</button>
+        </div>
+    </section>
+    <div id="footer"></div>
+</div>
+
+</body>
+</html>
