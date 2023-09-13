@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>VueTube</title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <link href="bootstrap/bootstrap-5.3.0.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="bootstrap/bootstrap-5.3.0.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="database/pouchdb-8.0.1.min.js"></script>
+    <script src="shared.js"></script>
+    <script src="likedVideos.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container-custom">
+    <br>
+    <div id="header"></div>
+
+    <h1 id="h1-lv">Liked Videos</h1>
+    <br>
+    <div class="mh-65">
+        <div class="row rw2 " id="results">
+            <img id="loadingGIF" src="static/loading.gif">
+        </div>
+    </div>
+    <div id="footer"></div>
+
+</div>
+</body>
+</html>
