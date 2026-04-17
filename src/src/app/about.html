@@ -2,31 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>VueTube</title>
+    <title>VueTube – About</title>
     <link rel="icon" type="image/x-icon" href="static/favicon.ico">
     <link rel="stylesheet" href="jquery/jquery-ui.css">
-    <script src="jquery/jquery.js"></script>
-    <script src="jquery/jquery-ui.js"></script>
     <link href="bootstrap/bootstrap-5.3.0.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery/jquery.js" defer></script>
+    <script src="jquery/jquery-ui.js" defer></script>
     <script src="bootstrap/bootstrap-5.3.0.bundle.min.js"
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
-    <script src="database/pouchdb-8.0.1.min.js"></script>
-    <script src="shared.js"></script>
-    <script src="about.js"></script>
-    <link rel="stylesheet" href="style.css">
+            crossorigin="anonymous" defer></script>
+    <script src="database/pouchdb-8.0.1.min.js" defer></script>
+    <script src="shared.js" defer></script>
+    <script src="about.js" defer></script>
 </head>
 <body>
-<br>
-<div class="container-custom">
+<div class="page-wrap">
     <div id="header"></div>
-    <h1 id="h1-lv">VueTube Team</h1>
-    <br>
-    <h2><a href="https://github.com/stojchevskiboris">Boris Stojchevski</a></h2>
-    <h2><a href="https://github.com/krstegosharevski">Krste Gosharevski</a></h2>
-    <h2><a href="https://github.com/DusanTemelkovski">Dushan Temelkovski</a></h2>
+
+    <main class="about-page">
+        <h1 class="page-heading">VueTube Team</h1>
+        <ul class="team-list">
+            <li><a href="https://github.com/stojchevskiboris" target="_blank" rel="noopener">Boris Stojchevski</a></li>
+            <li><a href="https://github.com/krstegosharevski" target="_blank" rel="noopener">Krste Gosharevski</a></li>
+            <li><a href="https://github.com/DusanTemelkovski" target="_blank" rel="noopener">Dushan Temelkovski</a></li>
+        </ul>
+    </main>
+
     <div id="footer"></div>
 </div>
 </body>
