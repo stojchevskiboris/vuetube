@@ -13,7 +13,7 @@
     <a href="https://vuejs.org/"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://vuetube-t7xj.onrender.com/"><strong>Try VueTube »</strong></a>
+    <a href="https://vuetube-dcia.onrender.com"><strong>Try VueTube »</strong></a>
   </p>
 </p>
 
