@@ -1,20 +1,21 @@
-<div class="row mb-4">
-    <div class="col-2 text-center hd1" id="homeBtn">
-        <img src="static/logo.png" width="50" height="50">
-        <p id="homeLink">VueTube</p>
+<header class="site-header">
+    <button class="header-logo" id="homeBtn" aria-label="Go to home">
+        <img src="static/logo.png" width="36" height="36" alt="VueTube logo">
+        <span>VueTube</span>
+    </button>
+
+    <div class="header-search">
+        <input id="searchInput" type="search" class="search-input" placeholder="Search…" aria-label="Search">
+        <button id="bt1" class="btn-search" type="button">Search</button>
     </div>
-    <div class="col input-group mb-3">
-        <input id="searchInput" onkeyup="inAuto()" onfocus="focusFunc()" type="search" class="form-control form-control-lg"
-               placeholder="Search">
-        <button id="bt1" onclick="call()" class="btn btn-outline-primary btn-lg" type="button">Search</button>
-    </div>
-    <div class="col-2" id="likedVids">
-        <p>Liked Videos</p>
-    </div>
-    <div class="col-1 text-align-center">
-        <a href="https://github.com/stojchevskiboris/vuetube"><img id="githubLink" src="/static/githubDark.png"></a>
-    </div>
-    <div class="col-1">
-        <img id="contrastLink" src="/static/darklight.png">
-    </div>
-</div>
+
+    <nav class="header-nav">
+        <button class="nav-btn" id="likedVids" aria-label="Liked Videos">&#9829; Liked</button>
+        <a href="https://github.com/stojchevskiboris/vuetube" target="_blank" rel="noopener" class="nav-icon-link" aria-label="GitHub">
+            <img id="githubLink" src="static/githubDark.png" width="28" height="28" alt="GitHub">
+        </a>
+        <button class="nav-icon-btn" id="contrastLink" aria-label="Toggle theme">
+            <img src="static/darklight.png" width="28" height="28" alt="Toggle theme">
+        </button>
+    </nav>
+</header>

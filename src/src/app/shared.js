@@ -1,218 +1,238 @@
-// shared ...
+// ==================== Database ====================
+const db = new PouchDB('users_db');
+const dbContrast = new PouchDB('contrast');
 
-// load header and footer so it`s not hard coded on every view
-$(function () {
-    $("#footer").load("footer.html");
-    $("#header").load("header.html");
-});
-
-// generate predictive words
-function inAuto() {
-    var predictions = []
-    var q = document.getElementById("searchInput").value
-    if (q === '' || q == null)
-        return
-    var url = `https://api.datamuse.com/words?sp=${q}*&max=10`
-    fetch(url)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(wordInfo => {
-                predictions.push(wordInfo.word)
-            });
-        })
-
-    setTimeout(() => {
-        autocomplete(predictions)
-    }, 200)
-}
-
-// set autocomplete on input
-function autocomplete(predictions) {
-    var btn1 = document.getElementById("bt1")
-    $("#searchInput").autocomplete({
-        source: predictions,
-        select: function (event, ui) { //ui.item.label
-            document.getElementById("searchInput").innerText = ui.item.label
-            setTimeout(() => {
-                btn1.click()
-                document.getElementById("searchInput").blur()
-            }, 200)
-
+// ==================== Session ====================
+function ensureSession() {
+    if (!localStorage.getItem('sessionId')) {
+        const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let id = '';
+        for (let i = 0; i < 10; i++) {
+            id += charset[Math.floor(Math.random() * charset.length)];
         }
-    })
-}
-
-function inAuto2() {
-    var predictions = []
-    var q = document.getElementById("searchInput2").value
-    if (q === '' || q == null)
-        return
-    var url = `https://api.datamuse.com/words?sp=${q}*&max=10`
-    fetch(url)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            data.forEach(wordInfo => {
-                predictions.push(wordInfo.word)
-            });
-        })
-
-    setTimeout(() => {
-        autocomplete2(predictions)
-    }, 200)
-}
-
-// set autocomplete on input
-function autocomplete2(predictions) {
-    var btn1 = document.getElementById("bt2")
-    $("#searchInput2").autocomplete({
-        source: predictions,
-        select: function (event, ui) { //ui.item.label
-            document.getElementById("searchInput2").innerText = ui.item.label
-            setTimeout(() => {
-                btn2.click()
-                document.getElementById("searchInput2").blur()
-            }, 200)
-
-        }
-    })
-}
-
-// Storing user session
-// Function to save the session ID to browser`s localStorage
-function saveSessionId() {
-    const sessionId = generateSessionId();
-    localStorage.setItem('sessionId', sessionId);
-    // console.log('Session ID saved:', sessionId);
-}
-
-// Function to clear the session ID from localStorage
-function clearSessionId() {
-    localStorage.removeItem('sessionId');
-    // console.log('Session ID cleared.');
-}
-
-// Function to generate a random session ID
-function generateSessionId() {
-    const charset = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let sessionId = '';
-    for (let i = 0; i < 10; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        sessionId += charset[randomIndex];
+        localStorage.setItem('sessionId', id);
     }
-    return sessionId;
 }
 
-// Check if there is a saved session ID and display it on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const sessionId = localStorage.getItem('sessionId');
-    if (sessionId) {
-        // console.log('Retrieved Session ID:', sessionId);
-    } else {
-        saveSessionId()
-    }
-});
+// ==================== Layout (header / footer) ====================
+async function loadLayout() {
+    const [headerRes, footerRes] = await Promise.all([
+        fetch('header.html'),
+        fetch('footer.html')
+    ]);
+    const [headerHtml, footerHtml] = await Promise.all([
+        headerRes.text(),
+        footerRes.text()
+    ]);
+    const headerEl = document.getElementById('header');
+    const footerEl = document.getElementById('footer');
+    if (headerEl) headerEl.innerHTML = headerHtml;
+    if (footerEl) footerEl.innerHTML = footerHtml;
+}
 
-
-// User session using pouchDB, initialization of variables
-var db = new PouchDB('users_db');
-var likedVideos = [] // an array of all liked videos
-
-
-
-// set liked videos style
-setTimeout(() => {
-    var h = document.getElementById('searchInput').offsetHeight
-    document.getElementById('homeLink').style.height = h + 'px'
-    document.getElementById('likedVids').style.height = h + 'px'
-    document.getElementById('likedVids').style.border = '1px solid #0d6efd'
-    // console.log(h)
-}, 200)
-
-setTimeout(() => {
-    document.getElementById("likedVids").onclick = function () {
-        window.location.href = 'likedVideos.html'
-    }
-}, 300)
-
-setTimeout(() => {
-    document.getElementById("homeBtn").onclick = function () {
-        window.location.href = 'index.html'
-    }
-}, 300)
-
-
-var dbContrast = new PouchDB('contrast');
-dbContrast.get('contrast')
-    .then((doc) => {
-        // console.log(doc)
-        setContrast(doc.dark)
-    })
-    .catch(() => {
-        dbContrast.put({
-            _id: 'contrast',
-            dark: false
-        })
-    })
-
+// ==================== Contrast ====================
 function setContrast(dark) {
-    if (dark) {
-        document.body.classList.add("darkTheme")
-        document.body.classList.remove("lightTheme")
-        document.getElementById("searchInput").classList.add("fc-dark")
-        // document.getElementById("searchInput2").classList.add("fc-dark")
-        // console.log(document.getElementById("githubLink").src)
-        // '/src/app/static/githubDark.png'
-        document.getElementById("githubLink").src = 'static/githubLight.png'
-        document.getElementById("githubFooter").src = 'static/githubLight.png'
-        document.getElementById("contrastLink").src = 'static/daylight.png'
+    document.body.classList.toggle('darkTheme', dark);
+    document.body.classList.toggle('lightTheme', !dark);
 
-        var elements = document.getElementsByClassName("card");
-        $(".card").each(function () {
-            $(this).addClass("dark-bg");
-        });
-    } else {
-        document.body.classList.add("lightTheme")
-        document.body.classList.remove("darkTheme")
-        document.getElementById("searchInput").classList.remove("fc-dark")
-        // document.getElementById("searchInput2").classList.remove("fc-dark")
-        document.getElementById("githubLink").src = 'static/githubDark.png'
-        document.getElementById("githubFooter").src = 'static/githubDark.png'
-        document.getElementById("contrastLink").src = 'static/darklight.png'
-        $(".card").each(function () {
-            $(this).removeClass("dark-bg");
-        });
+    const contrastBtn = document.getElementById('contrastLink');
+    if (contrastBtn) {
+        const img = contrastBtn.tagName === 'IMG' ? contrastBtn : contrastBtn.querySelector('img');
+        if (img) img.src = dark ? 'static/daylight.png' : 'static/darklight.png';
     }
 
+    const githubLink = document.getElementById('githubLink');
+    const githubFooter = document.getElementById('githubFooter');
+    if (githubLink) githubLink.src = dark ? 'static/githubLight.png' : 'static/githubDark.png';
+    if (githubFooter) githubFooter.src = dark ? 'static/githubLight.png' : 'static/githubDark.png';
+
+    document.querySelectorAll('.card').forEach(el => el.classList.toggle('dark-bg', dark));
+    document.querySelectorAll('input[type="search"], .form-control').forEach(el => el.classList.toggle('fc-dark', dark));
 }
 
-setTimeout(() => {
-    document.getElementById("contrastLink").onclick = function () {
-        dbContrast.get('contrast')
-            .then((doc) => {
-                if (doc.dark) {
-                    // console.log("setting to light")
-                    setContrast(!doc.dark)
-                    dbContrast.put({
-                        _id: 'contrast',
-                        _rev: doc._rev,
-                        dark: false
-                    })
-
-                } else {
-                    // console.log("setting to dark")
-                    setContrast(!doc.dark)
-                    dbContrast.put({
-                        _id: 'contrast',
-                        _rev: doc._rev,
-                        dark: true
-                    })
+async function initContrast() {
+    let doc;
+    try {
+        doc = await dbContrast.get('contrast');
+    } catch (e) {
+        if (e.status === 404) {
+            try {
+                await dbContrast.put({ _id: 'contrast', dark: false });
+                doc = { dark: false };
+            } catch (conflictErr) {
+                // Race condition: doc was created by another tab/context; read the existing one
+                try {
+                    doc = await dbContrast.get('contrast');
+                } catch (_) {
+                    doc = { dark: false };
                 }
-            })
+            }
+        } else {
+            doc = { dark: false };
+        }
     }
-}, 300)
+    setContrast(doc.dark);
+}
 
+async function toggleContrast() {
+    try {
+        const doc = await dbContrast.get('contrast');
+        const newDark = !doc.dark;
+        try {
+            await dbContrast.put({ _id: 'contrast', _rev: doc._rev, dark: newDark });
+        } catch (conflictErr) {
+            // Doc updated concurrently; re-read and retry once
+            const fresh = await dbContrast.get('contrast');
+            await dbContrast.put({ _id: 'contrast', _rev: fresh._rev, dark: newDark });
+        }
+        setContrast(newDark);
+    } catch (e) {
+        console.error('Failed to toggle contrast:', e);
+    }
+}
 
+// ==================== Navigation ====================
+function setupNav() {
+    const homeBtn = document.getElementById('homeBtn');
+    const likedVids = document.getElementById('likedVids');
+    const contrastBtn = document.getElementById('contrastLink');
+    if (homeBtn) homeBtn.addEventListener('click', () => { window.location.href = 'index.html'; });
+    if (likedVids) likedVids.addEventListener('click', () => { window.location.href = 'likedVideos.html'; });
+    if (contrastBtn) contrastBtn.addEventListener('click', toggleContrast);
+}
+
+// ==================== Search / Autocomplete ====================
+function setupSearch(inputId, btnId, searchFn) {
+    const input = document.getElementById(inputId);
+    const btn = document.getElementById(btnId);
+    if (!input) return;
+
+    const doSearch = () => {
+        const q = input.value.trim();
+        if (q) searchFn(q);
+    };
+
+    if (btn) btn.addEventListener('click', doSearch);
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); doSearch(); }
+    });
+
+    input.addEventListener('input', async () => {
+        const q = input.value.trim();
+        if (!q) return;
+        try {
+            const res = await fetch(`https://api.datamuse.com/words?sp=${encodeURIComponent(q)}*&max=10`);
+            const data = await res.json();
+            const predictions = data.map(w => w.word);
+            $(`#${inputId}`).autocomplete({
+                source: predictions,
+                select: (event, ui) => {
+                    input.value = ui.item.label;
+                    setTimeout(doSearch, 100);
+                    return false;
+                }
+            });
+        } catch (_) {}
+    });
+}
+
+function navigateSearch(query) {
+    if (!query) return;
+    window.location.href = 'searchResults.html?q=' + encodeURIComponent(query);
+}
+
+// ==================== YouTube API ====================
+async function fetchYouTubeResults(query, maxResults) {
+    if (!maxResults) maxResults = 20;
+    const apiKeys = [
+        'AIzaSyB5LG4TFaO95eqkE6yRBgJgr0egwSBSy8U',
+        'AIzaSyD1HX-in66XEtm57Ig6S2JJDQ56uXr5c2s',
+        'AIzaSyAdv9_oNyCgRE_coy3QYLlIG05bBqznx80'
+    ];
+    const idx = new Uint32Array(1);
+    crypto.getRandomValues(idx);
+    const apiKey = apiKeys[idx[0] % apiKeys.length];
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${apiKey}&maxResults=${maxResults}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('YouTube API error: ' + res.status);
+    const data = await res.json();
+    if (!data.items) throw new Error('No items in YouTube API response');
+    return data.items.map(item => {
+        const obj = {
+            isChannel: false,
+            title: item.snippet.title,
+            thumbnailUrl: item.snippet.thumbnails.high.url,
+            publishedAt: item.snippet.publishedAt
+        };
+        if (item.id.kind === 'youtube#channel') {
+            obj.isChannel = true;
+            obj.channelURL = 'https://www.youtube.com/channel/' + item.id.channelId;
+            obj.publishedAt = 'Channel';
+        } else {
+            obj.live = item.snippet.liveBroadcastContent;
+            obj.watch = item.id.videoId;
+            obj.videoURL = 'https://www.youtube.com/watch?v=' + item.id.videoId;
+            obj.channelURL = 'https://www.youtube.com/channel/' + item.snippet.channelId;
+            obj.chTitle = item.snippet.channelTitle;
+        }
+        return obj;
+    }).filter(obj => obj.isChannel || obj.watch);
+}
+
+// ==================== Card builder ====================
+function formatDate(dateStr) {
+    if (!dateStr || dateStr === 'Channel') return dateStr;
+    const d = dateStr.slice(0, 10);
+    return d.slice(8, 10) + '.' + d.slice(5, 7) + '.' + d.slice(0, 4);
+}
+
+function buildVideoCard(item, excludeWatchId) {
+    if (item.watch && item.watch === excludeWatchId) return '';
+    const isDark = document.body.classList.contains('darkTheme');
+    const darkClass = isDark ? ' dark-bg' : '';
+    const dateQS = item.live === 'live' ? 'Live' : formatDate(item.publishedAt);
+    const dateBadge = item.live === 'live'
+        ? '<span class="live-badge">LIVE</span>'
+        : '<span class="card-date">' + (formatDate(item.publishedAt) || '') + '</span>';
+
+    if (item.isChannel) {
+        return '<div class="col-card">' +
+            '<div class="card' + darkClass + '">' +
+            '<a href="' + item.channelURL + '" target="_blank" rel="noopener">' +
+            '<img src="' + item.thumbnailUrl + '" class="card-img-top" alt="' + item.title + '">' +
+            '</a>' +
+            '<div class="card-body">' +
+            '<a href="' + item.channelURL + '" target="_blank" rel="noopener" class="card-title-link">' +
+            '<h5 class="card-title">' + item.title + '</h5>' +
+            '</a>' +
+            '<p class="card-meta">Channel</p>' +
+            '</div></div></div>';
+    }
+
+    const viewUrl = 'view.html?watch=' + item.watch +
+        '&title=' + encodeURIComponent(item.title) +
+        '&channelName=' + encodeURIComponent(item.chTitle) +
+        '&publishedAt=' + encodeURIComponent(dateQS);
+
+    return '<div class="col-card">' +
+        '<div class="card' + darkClass + '">' +
+        '<a href="' + viewUrl + '">' +
+        '<img src="' + item.thumbnailUrl + '" class="card-img-top" alt="' + item.title + '">' +
+        '</a>' +
+        '<div class="card-body">' +
+        '<a href="' + viewUrl + '" class="card-title-link">' +
+        '<h5 class="card-title">' + item.title + '</h5>' +
+        '</a>' +
+        '<p class="card-meta"><a href="' + item.channelURL + '" target="_blank" rel="noopener">' + item.chTitle + '</a></p>' +
+        dateBadge +
+        '</div></div></div>';
+}
+
+// ==================== Page initializer ====================
+async function initPage() {
+    ensureSession();
+    await loadLayout();
+    setupNav();
+    await initContrast();
+}

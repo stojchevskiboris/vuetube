@@ -1,91 +1,50 @@
-window.onload = () => {
-    function focusFunc() {
-        var input = document.getElementById("searchInput");
-        input.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                call()
-            }
-        });
+document.addEventListener('DOMContentLoaded', async () => {
+    await initPage();
+    setupSearch('searchInput', 'bt1', navigateSearch);
+    await renderLikedVideos();
+});
+
+async function renderLikedVideos() {
+    const resultsEl = document.getElementById('results');
+    if (!resultsEl) return;
+
+    let rows;
+    try {
+        const result = await db.allDocs({ include_docs: true, descending: true });
+        rows = result.rows;
+    } catch (e) {
+        resultsEl.innerHTML = '<p class="no-results">Failed to load liked videos.</p>';
+        return;
     }
 
-// search function
-    function call() {
-        document.getElementById('searchInput').blur()
-        var search = document.getElementById('searchInput').value
-        if (search == undefined || search == "")
-            return
-        window.location.href = 'searchResults.html?q=' + search
+    if (rows.length === 0) {
+        resultsEl.innerHTML = '<p class="no-results">You don\'t have any liked videos yet.</p>';
+        return;
     }
 
-// retrieve liked videos
-    db.allDocs({include_docs: true, descending: true}, function (err, doc) {
-        // console.log(doc.rows)
-        likedVideos = doc.rows
+    const isDark = document.body.classList.contains('darkTheme');
+    const darkClass = isDark ? ' dark-bg' : '';
+
+    const cards = rows.map(row => {
+        const { _id: id, title, channelName, publishedAt } = row.doc;
+        const isLive = publishedAt === 'Live';
+        const liveClass = isLive ? ' live-badge' : '';
+        const viewUrl = 'view.html?watch=' + id +
+            '&title=' + encodeURIComponent(title || '') +
+            '&channelName=' + encodeURIComponent(channelName || '') +
+            '&publishedAt=' + encodeURIComponent(publishedAt || '');
+
+        return '<div class="col-card">' +
+            '<div class="card' + darkClass + '">' +
+            '<a href="' + viewUrl + '">' +
+            '<img src="https://img.youtube.com/vi/' + id + '/0.jpg" class="card-img-top" alt="' + (title || '') + '">' +
+            '</a>' +
+            '<div class="card-body">' +
+            '<a href="' + viewUrl + '" class="card-title-link"><h5 class="card-title">' + (title || '') + '</h5></a>' +
+            '<p class="card-meta">' + (channelName || '') + '</p>' +
+            '<span class="card-date' + liveClass + '">' + (publishedAt || '') + '</span>' +
+            '</div></div></div>';
     });
 
-// clear liked videos list
-    function deleteAllLikedVideos() {
-        setTimeout(() => {
-            for (let x in likedVideos) {
-                db.remove(likedVideos[x].doc)
-            }
-        }, 1000)
-    }
-
-// displa
-    setTimeout(function () {
-        var text = ""
-        if (likedVideos.length == 0) {
-            document.getElementById("results").innerHTML = '<h5>You don`t have liked videos</h5>'
-        }
-
-        for (let x in likedVideos) {
-            var title = likedVideos[x].doc.title
-            // console.log(title)
-            var id = likedVideos[x].doc._id
-            var publishedAt = likedVideos[x].doc.publishedAt
-            var channelName = likedVideos[x].doc.channelName
-            var liveClass = ''
-            if (publishedAt == "Live")
-                liveClass = ' live live2 '
-            text +=
-                '<div class="col mb-4">' +
-                '<div class="card" style="width: 20rem">' +
-                '<a class="text-decoration-none" href="view.html?watch=' + id + '&amp;title=' + title + '&amp;channelName=' + channelName + '&amp;publishedAt=' + publishedAt + '">' +
-                '<img src="https://img.youtube.com/vi/' + id + '/0.jpg" class="card-img-top" alt="..."></a>' +
-                '<div class="card-body cb-1">' +
-                '<div><a class="text-decoration-none" href="view.html?watch=' + id + '&amp;title=' + title + '&amp;channelName=' + channelName + '&amp;publishedAt=' + publishedAt + '">' +
-                '<h5 class="card-title">' + title + '</h5></a>' +
-                'Channel: ' + channelName + '</div>' +
-                '<p class="card-text text-end' + liveClass + '">' + publishedAt + '</p>' +
-                '</div>' +
-                '</div>' +
-                '</div>'
-
-
-            document.getElementById("results").innerHTML = text
-
-        }
-        dbContrast.get('contrast')
-            .then((doc) => {
-                setContrast(doc.dark)
-            })
-
-        // error prevention timeout call if last one didnt succeed
-        setTimeout(() => {
-            if (document.getElementById("results").innerHTML === '<img id="loadingGIF" src="static/loading.gif">') {
-                // console.log("calling with q: " + search)
-                call(search)
-            }
-        }, 1500)
-
-    }, 800)
-
-    document.getElementById("bt1").onclick = () => {
-        call()
-    }
-    document.getElementById("searchInput").onclick = () => {
-        focusFunc()
-    }
+    resultsEl.innerHTML = cards.join('');
 }
