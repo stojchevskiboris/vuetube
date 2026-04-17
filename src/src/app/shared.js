@@ -36,7 +36,10 @@ function setContrast(dark) {
     document.body.classList.toggle('lightTheme', !dark);
 
     const contrastBtn = document.getElementById('contrastLink');
-    if (contrastBtn) contrastBtn.src = dark ? 'static/daylight.png' : 'static/darklight.png';
+    if (contrastBtn) {
+        const img = contrastBtn.tagName === 'IMG' ? contrastBtn : contrastBtn.querySelector('img');
+        if (img) img.src = dark ? 'static/daylight.png' : 'static/darklight.png';
+    }
 
     const githubLink = document.getElementById('githubLink');
     const githubFooter = document.getElementById('githubFooter');
@@ -147,7 +150,9 @@ async function fetchYouTubeResults(query, maxResults) {
         'AIzaSyD1HX-in66XEtm57Ig6S2JJDQ56uXr5c2s',
         'AIzaSyAdv9_oNyCgRE_coy3QYLlIG05bBqznx80'
     ];
-    const apiKey = apiKeys[Math.floor(Math.random() * apiKeys.length)];
+    const idx = new Uint32Array(1);
+    crypto.getRandomValues(idx);
+    const apiKey = apiKeys[idx[0] % apiKeys.length];
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${apiKey}&maxResults=${maxResults}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('YouTube API error: ' + res.status);
